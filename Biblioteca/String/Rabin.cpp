@@ -1,11 +1,11 @@
 struct Rabin{
-    ll base, mod, sz;
+    ll base, mod;
     vll pot, has;
 
     Rabin(string &str, ll mod = 997 , ll base = 1e9+7): mod(mod), base(base){
-        this->sz = str.size();
-        pot.resize(this->sz+1);
-        has.resize(this->sz+1);
+        ll sz = str.size();
+        pot.resize(sz+1);
+        has.resize(sz+1);
 
         build(str);
     }
@@ -13,7 +13,7 @@ struct Rabin{
     void build(string &str){
         pot[0] = 1;
         has[0] = str[0];
-        for(int i = 1 ; i < sz ; i++){
+        for(int i = 1 ; i < str.size() ; i++){
             pot[i] = (pot[i-1]*base)%mod;
             has[i] = ((has[i-1]*base) + str[i])%mod;
         }
