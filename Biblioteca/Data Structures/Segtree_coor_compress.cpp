@@ -1,6 +1,7 @@
 struct Node{
     ll v;
 
+    // Buildar um fator neutro para o no (no caso de segtreeeh zero)
     Node(ll v=0L): v(v){}
 
     Node operator+ (const Node &o){
@@ -13,26 +14,41 @@ struct Segtree{
     vector<Node> tree;
     ll sz;
 
-    Segtree(ll n): sz(n){
+    Segtree(ll n, vll &vec = {}): sz(n){
         this->tree.resize(4*n);
+
+        if(vec.size() == n) build(vec);
     }
 
-    void update(ll n, ll l, ll r, ll p, Node &node){
+    void build(vll &vec, ll n = 1, ll l = 1, ll r = sz){
         if(l == r){
-            //update the node
-            tree[n] = tree[n] + node;
+            tree[n] = Node(vec[l]);
             return;
         }
 
         ll m = (l+r)/2;
-        if(p <= m) update(2*n, l, m, p, node);
-        else update(2*n + 1, m+1, r, p, node);
+        build(vec, 2*n, l, m);
+        build(vec, 2*n + 1, m+1, r);
+
+        tree[n] = tree[2*n] + tree[2*n + 1];
+    }
+
+    void update(ll n, ll l, ll r, ll p, ll val){
+        if(l == r){
+            //update the node
+            tree[n] = tree[n] + Node(val);
+            return;
+        }
+
+        ll m = (l+r)/2;
+        if(p <= m) update(2*n, l, m, p, val);
+        else update(2*n + 1, m+1, r, p, val);
 
         tree[n] = tree[2*n] + tree[2*n+1];
     }
 
-    void update(ll p, Node &node){
-        update(1, 1, sz, p, node);
+    void update(ll p, ll val){
+        update(1, 1, sz, p, val);
     }
 
     Node querie(ll n, ll l, ll r, ll a, ll b){
@@ -40,7 +56,7 @@ struct Segtree{
 
         if(r < a || l > b){
             //return node that doesnt change the segtree
-            return NULL;
+            return Node();
         }
 
         ll m = (l+r)/2;
@@ -71,4 +87,4 @@ struct Compress{
         auto it = lower_bound(vec.begin(), vec.end(), t);
         return (it-vec.begin());
     }
-}
+};
