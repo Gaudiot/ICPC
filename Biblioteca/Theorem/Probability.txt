@@ -1,0 +1,4 @@
+Distribuição de bernoulli com chance de sucesso p
+E(m) = p
+Distribuição quadrática de bernoulli com chance de sucesso p
+E(m^2) = (2-p)/(p^2)
