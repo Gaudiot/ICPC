@@ -1,5 +1,5 @@
 //Maybe it is not necessary to take the mod
-const ll mod = 1e18;
+const ll mod;
 
 ll fexp(ll a, ll b){
     ll ans = 1;

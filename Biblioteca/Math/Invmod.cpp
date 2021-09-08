@@ -19,5 +19,5 @@ ll invmod(ll a){
 vll inv(n);
 inv[1] = 1;
 for(int i = 2 ; i < n ; i++){
-    inv[i] = m - ((m/i)*inv[m%i])%m;
+    inv[i] = mod - ((mod/i)*inv[mod%i])%mod;
 }
