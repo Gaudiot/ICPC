@@ -2,7 +2,9 @@ struct Rabin{
     ll base, mod;
     vll pot, has;
 
-    Rabin(string &str, ll mod = 997 , ll base = 1e9+7): mod(mod), base(base){
+    //alt-base = 787
+    //alt-mod = 1e9+87
+    Rabin(string &str, ll base = 997 , ll mod = 1e9+7): mod(mod), base(base){
         ll sz = str.size();
         pot.resize(sz+1);
         has.resize(sz+1);
