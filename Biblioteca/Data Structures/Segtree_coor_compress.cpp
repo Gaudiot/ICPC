@@ -51,7 +51,7 @@ struct Segtree{
         update(1, 1, sz, p, val);
     }
 
-    Node querie(ll n, ll l, ll r, ll a, ll b){
+    Node query(ll n, ll l, ll r, ll a, ll b){
         if(a <= l && r <= b) return tree[n];
 
         if(r < a || l > b){
@@ -60,14 +60,14 @@ struct Segtree{
         }
 
         ll m = (l+r)/2;
-        Node left = querie(2*n, l, m, a, b);
-        Node right = querie(2*n + 1, m+1, r, a, b);
+        Node left = query(2*n, l, m, a, b);
+        Node right = query(2*n + 1, m+1, r, a, b);
 
         return left+right;
     }
 
-    Node querie(ll l, ll r){
-        return querie(1, 1, sz, l, r);
+    Node query(ll l, ll r){
+        return query(1, 1, sz, l, r);
     }
 };
 
