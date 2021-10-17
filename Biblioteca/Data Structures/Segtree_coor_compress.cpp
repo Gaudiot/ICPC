@@ -75,7 +75,9 @@ template <class T>
 struct Compress{
     vector<T> vec;
 
-    void push(const T &t) vec.push_back(t);
+    void push(const T &t){
+        vec.push_back(t);
+    }
 
     int build(){
         sort(vec.begin(), vec.end());
