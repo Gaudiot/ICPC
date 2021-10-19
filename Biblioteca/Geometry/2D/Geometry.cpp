@@ -17,6 +17,11 @@ struct PT{
     PT operator* (ld k) const{ return PT(x*k, y*k); }
     PT operator/ (ld k) const{ return PT(x/k, y/k); }
 
+    bool operator <(const PT &p) const {
+      if(cmp(x, p.x) != 0) return x < p.x;
+      return cmp(y, p.y) < 0;
+    }
+
     bool operator== (const PT &p){ return !cmp(x, p.x) && !cmp(y, p.y);}
     bool operator!= (const PT &p){ return !(*this == p);}
 };
@@ -63,6 +68,18 @@ PT projectPointLine (PT a, PT b, PT c) {
 PT reflectPointLine (PT a, PT b, PT c) {
   PT p = projectPointLine(a, b, c);
   return p*2 - c;
+}
+
+//Verifica se os segmentos de reta a-b e c-d se intersectam
+bool segInter (PT a, PT b, PT c, PT d) {
+  if (collinear(a, b, c, d)) {
+    if (cmp(dist(a, c)) == 0 || cmp(dist(a, d)) == 0 || cmp(dist(b, c)) == 0 || cmp(dist(b, d)) == 0) return true;
+    if (cmp(dot(c - a, c - b)) > 0 && cmp(dot(d - a, d - b)) > 0 && cmp(dot(c - b, d - b)) > 0) return false;
+    return true;
+  }
+  if (cmp(cross(d - a, b - a) * cross(c - a, b - a)) > 0) return false;
+  if (cmp(cross(a - c, d - c) * cross(b - c, d - c)) > 0) return false;
+  return true;
 }
 
 //interseccao entre a-b e c-d
