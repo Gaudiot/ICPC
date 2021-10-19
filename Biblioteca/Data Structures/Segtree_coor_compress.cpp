@@ -1,12 +1,21 @@
 struct Node{
     ll v;
 
-    // Buildar um fator neutro para o no (no caso de segtreeeh zero)
-    Node(ll v=0L): v(v){}
+    // Buildar um fator neutro para o node (no caso de segtree de soma eh zero)
+    Node(){ v = 0;}
 
+    Node(ll v): v(v){}
+
+    //FUNCAO DE MERGE
     Node operator+ (const Node &o){
         //merge function
-        return Node(v + o.v);
+        Node result;
+        result.v = v + o.v;
+        return result;
+    }
+
+    ll getValue(){
+        return v;
     }
 };
 
@@ -14,15 +23,16 @@ struct Segtree{
     vector<Node> tree;
     ll sz;
 
-    Segtree(ll n, vll &vec = {}): sz(n){
-        this->tree.resize(4*n);
+    Segtree(vector<Node> &vec){
+        sz = vec.size();
 
-        if(vec.size() == n) build(vec);
+        this->tree.resize(4*sz);
+        build(vec, 1, 1, sz);
     }
 
-    void build(vll &vec, ll n = 1, ll l = 1, ll r = sz){
+    void build(vector<Node> &vec, ll n, ll l, ll r){
         if(l == r){
-            tree[n] = Node(vec[l]);
+            tree[n] = vec[l];
             return;
         }
 
@@ -33,22 +43,22 @@ struct Segtree{
         tree[n] = tree[2*n] + tree[2*n + 1];
     }
 
-    void update(ll n, ll l, ll r, ll p, ll val){
+    void update(ll n, ll l, ll r, ll p, Node &node){
         if(l == r){
             //update the node
-            tree[n] = tree[n] + Node(val);
+            tree[n] = tree[n] + node;
             return;
         }
 
         ll m = (l+r)/2;
-        if(p <= m) update(2*n, l, m, p, val);
-        else update(2*n + 1, m+1, r, p, val);
+        if(p <= m) update(2*n, l, m, p, node);
+        else update(2*n + 1, m+1, r, p, node);
 
         tree[n] = tree[2*n] + tree[2*n+1];
     }
 
-    void update(ll p, ll val){
-        update(1, 1, sz, p, val);
+    void update(ll p, Node node){
+        update(1, 1, sz, p, node);
     }
 
     Node query(ll n, ll l, ll r, ll a, ll b){
