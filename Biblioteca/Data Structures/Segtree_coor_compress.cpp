@@ -4,7 +4,7 @@ struct Node{
     // Buildar um fator neutro para o node (no caso de segtree de soma eh zero)
     Node(){ v = 0;}
 
-    Node(ll v): v(v){}
+    Node(ll _v): v(_v){}
 
     //FUNCAO DE MERGE
     Node operator+ (const Node &o){
@@ -14,9 +14,7 @@ struct Node{
         return result;
     }
 
-    ll getValue(){
-        return v;
-    }
+    ll getValue(){  return v; }
 };
 
 struct Segtree{
@@ -24,61 +22,64 @@ struct Segtree{
     ll sz;
 
     Segtree(vector<Node> &vec){
-        sz = vec.size();
+        sz = vec.size()-1; //-1 is a correction factor
 
         this->tree.resize(4*sz);
         build(vec, 1, 1, sz);
     }
 
-    void build(vector<Node> &vec, ll n, ll l, ll r){
-        if(l == r){
-            tree[n] = vec[l];
-            return;
+    private:
+        void build(vector<Node> &vec, ll n, ll l, ll r){
+            if(l == r){
+                tree[n] = vec[l];
+                return;
+            }
+
+            ll m = (l+r)/2;
+            build(vec, 2*n, l, m);
+            build(vec, 2*n + 1, m+1, r);
+
+            tree[n] = tree[2*n] + tree[2*n + 1];
         }
 
-        ll m = (l+r)/2;
-        build(vec, 2*n, l, m);
-        build(vec, 2*n + 1, m+1, r);
+        void update(ll n, ll l, ll r, ll p, Node &node){
+            if(l == r){
+                //update the node
+                tree[n] = tree[n] + node;
+                return;
+            }
 
-        tree[n] = tree[2*n] + tree[2*n + 1];
-    }
+            ll m = (l+r)/2;
+            if(p <= m) update(2*n, l, m, p, node);
+            else update(2*n + 1, m+1, r, p, node);
 
-    void update(ll n, ll l, ll r, ll p, Node &node){
-        if(l == r){
-            //update the node
-            tree[n] = tree[n] + node;
-            return;
+            tree[n] = tree[2*n] + tree[2*n+1];
         }
 
-        ll m = (l+r)/2;
-        if(p <= m) update(2*n, l, m, p, node);
-        else update(2*n + 1, m+1, r, p, node);
+        Node query(ll n, ll l, ll r, ll a, ll b){
+            if(a <= l && r <= b) return tree[n];
 
-        tree[n] = tree[2*n] + tree[2*n+1];
-    }
+            if(r < a || b < l){
+                //return node that doesnt change the segtree
+                return Node();
+            }
 
-    void update(ll p, Node node){
-        update(1, 1, sz, p, node);
-    }
+            ll m = (l+r)/2;
+            Node left = query(2*n, l, m, a, b);
+            Node right = query(2*n + 1, m+1, r, a, b);
 
-    Node query(ll n, ll l, ll r, ll a, ll b){
-        if(a <= l && r <= b) return tree[n];
-
-        if(r < a || l > b){
-            //return node that doesnt change the segtree
-            return Node();
+            return left+right;
         }
 
-        ll m = (l+r)/2;
-        Node left = query(2*n, l, m, a, b);
-        Node right = query(2*n + 1, m+1, r, a, b);
+    public:
+        void update(ll p, ll val){
+            Node node(val);
+            update(1, 1, sz, p, node);
+        }
 
-        return left+right;
-    }
-
-    Node query(ll l, ll r){
-        return query(1, 1, sz, l, r);
-    }
+        Node query(ll l, ll r){
+            return query(1, 1, sz, l, r);
+        }
 };
 
 template <class T>
