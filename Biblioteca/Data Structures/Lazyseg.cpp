@@ -73,9 +73,11 @@ struct Lazyseg{
 
         void apply(ll n, ll l, ll r){
             if(!lazy[n].empty()){
-                ll m = (l+r)/2;
-                tree[2*n]  = tree[2*n] + (lazy[n] * (m - l + 1));
-                tree[2*n + 1] = tree[2*n + 1] + (lazy[n] * (r - m));
+                if(l < r){
+                    ll m = (l+r)/2;
+                    tree[2*n]  = tree[2*n] + (lazy[n] * (m - l + 1));
+                    tree[2*n + 1] = tree[2*n + 1] + (lazy[n] * (r - m));
+                }
 
                 push(n, l, r);
             }
