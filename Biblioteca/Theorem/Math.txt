@@ -1,1 +1,7 @@
 -Two consecutive number are always coprime gcd(n, n+1) = 1
+
+-Teorema de Lucas
+*Comb(m, n) ≡ ∏Comb(Mi, Ni) (mod p)
+*m=(Mk)*(​p^k) + ⋯ + (M1)*(​p^1) + M0 e similiar para o n
+*A quantidade de elementos da linha N do triângulo de pascal que não são divisíveis por p é dado pela fórmula
+*∏(Ni + 1)
