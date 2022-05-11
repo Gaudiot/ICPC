@@ -1,12 +1,12 @@
-typedef pair<ll, ll> pll;
+typedef pair<ll, ll> pair<ll, ll>;
 
-ll prim(vector<vector<pll>> &adj, ll source = 0){
+ll prim(vector<vector<pair<ll, ll>>> &adj, ll source = 0){
     ll n = adj.size();
 
     vector<ll> dist(n, -1);
     dist[source] = 0;
 
-    priority_queue<pll, vector<pll>, greater<pll>> pq; //<dist, node>
+    priority_queue<pair<ll, ll>, vector<pair<ll, ll>>, greater<pair<ll, ll>>> pq; //<dist, node>
     pq.push({0, source});
 
     vector<bool> visit(n, false);

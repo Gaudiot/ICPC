@@ -1,13 +1,13 @@
-typedef pair<ll, ll> pll;
+typedef pair<ll, ll> pair<ll, ll>;
 
 vector<ll> dist(n, -1); //distance to source array, -1 implies infinite distance
-vector<vector<pll>> adj(n); //matriz de adjacência [<distance, node>]
+vector<vector<pair<ll, ll>>> adj(n); //matriz de adjacência [<distance, node>]
 
 //Remember it only works on graphs without negative edges
 void dijkstra(ll source, ll end = -1LL){
     dist[source] = 0;
 
-    priority_queue<pll, vector<pll>, greater<pll>> pq; //<distance, node>
+    priority_queue<pair<ll, ll>, vector<pair<ll, ll>>, greater<pair<ll, ll>>> pq; //<distance, node>
     pq.push({0, source});
 
     ll d, node;
