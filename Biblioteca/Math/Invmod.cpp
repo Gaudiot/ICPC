@@ -16,7 +16,7 @@ ll invmod(ll a){
 //Calculates all multiplicative inverse in range [1, n)
 //For this to work n MUST be prime
 
-vll inv(n);
+vector<ll> inv(n);
 inv[1] = 1;
 for(int i = 2 ; i < n ; i++){
     inv[i] = mod - ((mod/i)*inv[mod%i])%mod;

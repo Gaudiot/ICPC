@@ -1,7 +1,7 @@
 struct KMP{
     private:
         string str;
-        vll border;
+        vector<ll> border;
 
     KMP(string &str): str(str){
         border.resize(str.size());

@@ -1,7 +1,7 @@
 struct Trie{
     private:
-        vector<vll> trie;
-        vll terminal;
+        vector<vector<ll>> trie;
+        vector<ll> terminal;
         ll z;
 
         ll get_id(char ch){
@@ -10,7 +10,7 @@ struct Trie{
 
 
     Trie(ll ms, ll sigma){
-        trie.resize(ms*sigma, vll(sigma, -1));
+        trie.resize(ms*sigma, vector<ll>(sigma, -1));
         terminal(ms*sigma);
         z = 1;
     }

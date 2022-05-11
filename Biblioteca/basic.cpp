@@ -8,7 +8,6 @@
 using namespace std;
 
 typedef long long ll;
-typedef vector<ll> vll;
 typedef long double ld;
 #define endl '\n'
 

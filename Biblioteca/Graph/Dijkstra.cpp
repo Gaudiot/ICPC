@@ -1,6 +1,6 @@
 typedef pair<ll, ll> pll;
 
-vll dist(n, -1); //distance to source array, -1 implies infinite distance
+vector<ll> dist(n, -1); //distance to source array, -1 implies infinite distance
 vector<vector<pll>> adj(n); //matriz de adjacência [<distance, node>]
 
 //Remember it only works on graphs without negative edges

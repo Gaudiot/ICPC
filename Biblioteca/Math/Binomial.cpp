@@ -13,7 +13,7 @@ ll comb(ll n, ll k){
 
 const ll maxn;
 const ll mod;
-vll fat(maxn+5);
+vector<ll> fat(maxn+5);
 
 //It can be optimized if instead of invmod(fat[k]*fat[n-k]) we precalculate
 //all the invmod from [1, maxn] (this can de done in O(maxn))

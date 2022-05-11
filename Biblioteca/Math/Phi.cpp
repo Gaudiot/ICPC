@@ -17,7 +17,7 @@ ll phi(ll n){
 
 //Calculates PHI for a range [1, n]
 
-vll phi(n+5);
+vector<ll> phi(n+5);
 
 void sieve(ll n){
     for(int i = 1 ; i <= n ; i++) phi[i] = i;

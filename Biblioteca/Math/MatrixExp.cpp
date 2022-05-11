@@ -2,10 +2,10 @@ const ll mod;
 const ll sz;
 
 struct Matrix{
-    vector<vll> mat;
+    vector<vector<ll>> mat;
 
     Matrix(){
-        mat.resize(sz, vll(sz, 0));
+        mat.resize(sz, vector<ll>(sz, 0));
     }
 
     Matrix operator* (const Matrix &p){

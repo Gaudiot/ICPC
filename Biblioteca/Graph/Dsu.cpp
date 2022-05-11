@@ -1,6 +1,6 @@
 struct Dsu{
-    vll ds;
-    vll sz;
+    vector<ll> ds;
+    vector<ll> sz;
 
     Dsu(ll n){
         ds.resize(n);

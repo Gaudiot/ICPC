@@ -3,7 +3,7 @@ typedef pair<ll, ll> pll;
 ll prim(vector<vector<pll>> &adj, ll source = 0){
     ll n = adj.size();
 
-    vll dist(n, -1);
+    vector<ll> dist(n, -1);
     dist[source] = 0;
 
     priority_queue<pll, vector<pll>, greater<pll>> pq; //<dist, node>

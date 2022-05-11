@@ -1,8 +1,8 @@
 const ll logn = 20;
 
-vll depth(n);
-vector<vll> adj(n);
-vector<vll> up(n, vll(logn, -1));
+vector<ll> depth(n);
+vector<vector<ll>> adj(n);
+vector<vector<ll>> up(n, vector<ll>(logn, -1));
 
 void dfs(ll node = 0){ //Starts at root
     for(auto next: adj[node]){

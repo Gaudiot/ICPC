@@ -1,6 +1,6 @@
 struct Rabin{
     ll base, mod;
-    vll pot, has;
+    vector<ll> pot, has;
 
     //alt-base = 787
     //alt-mod = 1e9+87

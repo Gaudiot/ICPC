@@ -1,8 +1,8 @@
 struct SCC{
     private:
-        vector<vll> adj;
-        vector<vll> rev;
-        vector<vll> components;
+        vector<vector<ll>> adj;
+        vector<vector<ll>> rev;
+        vector<vector<ll>> components;
         ll sz;
 
         void makePath(ll node, stack<ll> &q, vector<bool> &visit){

@@ -1,5 +1,5 @@
 struct Bit{
-    vll vec;
+    vector<ll> vec;
     ll sz;
 
     Bit(ll sz){

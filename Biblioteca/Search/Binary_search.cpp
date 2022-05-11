@@ -1,4 +1,4 @@
-vll vec; //The vec array must be sorted in order to the binary search  to work
+vector<ll> vec; //The vec array must be sorted in order to the binary search  to work
 bool binary_search(ll val){
     ll l = 0; //Set minimum value here
     ll r = vec.size()-1; // Set maximum value here
