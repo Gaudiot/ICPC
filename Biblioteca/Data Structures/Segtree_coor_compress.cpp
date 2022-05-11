@@ -17,20 +17,21 @@ struct Node{
     ll getValue(){  return v; }
 };
 
+//Caso de exemplo é segtree de soma
 struct Segtree{
     vector<Node> tree;
     ll sz;
 
     Segtree(vector<Node> &vec){
-        sz = vec.size()-1; //-1 is a correction factor
+        sz = vec.size(); //-1 is a correction factor
 
-        this->tree.resize(4*sz);
-        build(vec, 1, 1, sz);
+        tree.resize(4*sz);
+        build(vec, 1, 0, sz);
     }
 
     private:
         void build(vector<Node> &vec, ll n, ll l, ll r){
-            if(l == r){
+            if(r-l == 1){
                 tree[n] = vec[l];
                 return;
             }
@@ -43,15 +44,15 @@ struct Segtree{
         }
 
         void update(ll n, ll l, ll r, ll p, Node &node){
-            if(l == r){
+            if(r-l == 1){
                 //update the node
                 tree[n] = tree[n] + node;
                 return;
             }
 
             ll m = (l+r)/2;
-            if(p <= m) update(2*n, l, m, p, node);
-            else update(2*n + 1, m+1, r, p, node);
+            if(p < m) update(2*n, l, m, p, node);
+            else update(2*n + 1, m+1, m, p, node);
 
             tree[n] = tree[2*n] + tree[2*n+1];
         }
@@ -59,14 +60,14 @@ struct Segtree{
         Node query(ll n, ll l, ll r, ll a, ll b){
             if(a <= l && r <= b) return tree[n];
 
-            if(r < a || b < l){
+            if(r <= a || b <= l){
                 //return node that doesnt change the segtree
                 return Node();
             }
 
             ll m = (l+r)/2;
             Node left = query(2*n, l, m, a, b);
-            Node right = query(2*n + 1, m+1, r, a, b);
+            Node right = query(2*n + 1, m, r, a, b);
 
             return left+right;
         }
@@ -74,11 +75,11 @@ struct Segtree{
     public:
         void update(ll p, ll val){
             Node node(val);
-            update(1, 1, sz, p, node);
+            update(1, 0, sz, p, node);
         }
 
         Node query(ll l, ll r){
-            return query(1, 1, sz, l, r);
+            return query(1, 0, sz, l, r);
         }
 };
 

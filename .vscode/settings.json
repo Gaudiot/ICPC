@@ -1,6 +1,20 @@
 {
     "files.associations": {
         "vector": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "array": "cpp",
+        "bitset": "cpp",
+        "deque": "cpp",
+        "initializer_list": "cpp",
+        "list": "cpp",
+        "queue": "cpp",
+        "regex": "cpp",
+        "stack": "cpp",
+        "type_traits": "cpp",
+        "valarray": "cpp",
+        "xhash": "cpp",
+        "xstring": "cpp",
+        "xtree": "cpp",
+        "xutility": "cpp"
     }
 }
