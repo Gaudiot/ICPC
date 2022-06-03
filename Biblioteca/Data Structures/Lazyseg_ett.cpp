@@ -64,6 +64,9 @@ struct Segtree{
             update(2*n, l, m, a, b, val);
             update(2*n + 1, m, r, a, b, val);
 
+            apply(2*n, l, m);
+            apply(2*n + 1, m, r);
+
             tree[n] = tree[2*n] + tree[2*n + 1];
         }
 
