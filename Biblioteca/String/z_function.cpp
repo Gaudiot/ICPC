@@ -19,13 +19,14 @@ struct ZArr{
       z.resize(sz);
 
       ll l = 0, r = 0;
-
-      for(int i = 1 ; i < sz ; i++){
-        if(i < r) z[i] = min(r-i, z[i-l]);
-        while(i + z[i] < sz && str[z[i]] == str[i + z[i]]) z[i]++;
-        if(i+z[i] > r){
+      for(ll i = 1 ; i < sz ; i++){
+        if(r-i >  z[i-l]){
+          z[i] = z[i-l];
+        }else{
           l = i;
-          r = i + z[i];
+          r = max(r, i);
+          while(r < sz && str[r] == str[r-l]) r++;
+          z[i] = r-l;
         }
       }
     }
@@ -35,9 +36,9 @@ struct ZArr{
       pair<ll, ll> p = {-1, 0};
       ll sz = 0;
 
-      for(int i = 0 ; i < match.size() ; i++){
-        if(sz < match[i].size()){
-          sz = match[i];
+      for(int i = 0 ; i < z.size() ; i++){
+        if(sz < z[i]){
+          sz = z[i];
           p = {i, sz};
         }
       }
@@ -49,8 +50,8 @@ struct ZArr{
       vector<ll> ans;
       if(!hasPattern) return ans;
 
-      for(int i = 0 ; i < match.size() ; i++){
-        if(match[i] == patternSize) ans.push_back(i - (patternSize + 1));
+      for(int i = 0 ; i < z.size() ; i++){
+        if(z[i] == patternSize) ans.push_back(i - (patternSize + 1));
       }
 
       return ans;
