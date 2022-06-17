@@ -1,7 +1,15 @@
 -Two consecutive number are always coprime gcd(n, n+1) = 1
 
 -Teorema de Lucas
+*Problema conhecido: contar quantos elementos em uma linha de pascal são par
 *Comb(m, n) ≡ ∏Comb(Mi, Ni) (mod p)
-*m=(Mk)*(​p^k) + ⋯ + (M1)*(​p^1) + M0 e similiar para o n
+*m=(Mk)*(​p^k) + ⋯ + (M1)*(​p^1) + M0
+*n=(Nj)*(p^j) + ⋯ + (N1)*(p^1) + N0
+*Comb(m, n) é divisível por p quando houve ao menos um Mk < Nk
 *A quantidade de elementos da linha N do triângulo de pascal que não são divisíveis por p é dado pela fórmula
 *∏(Ni + 1)
+
+-Catalan number (Cn = catalan de N)
+*Problema conhecido: Quantas formas existem de fazer uma sequência válida com 2*N bracket (ex.: [][[]] )
+*C(n+1) = somatorio(0..n)(Ci*Cn-i);
+*Cn = Comb(2n, n)/(n+1);
