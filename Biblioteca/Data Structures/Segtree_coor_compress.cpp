@@ -2,15 +2,16 @@ struct Node{
     ll v;
 
     // Buildar um fator neutro para o node (no caso de segtree de soma eh zero)
-    Node(){ v = 0;}
+    Node(ll _v = 0){
+      v = _v;
+    }
 
     Node(ll _v): v(_v){}
 
     //FUNCAO DE MERGE
     Node operator+ (const Node &o){
         //merge function
-        Node result;
-        result.v = v + o.v;
+        Node result(v + o.v);
         return result;
     }
 
@@ -22,31 +23,31 @@ struct Segtree{
     vector<Node> tree;
     ll sz;
 
-    Segtree(vector<Node> &vec){
-        sz = vec.size(); //-1 is a correction factor
+    Segtree(vector<ll> &vec){
+        sz = vec.size();
 
         tree.resize(4*sz);
-        build(vec, 1, 0, sz);
+        build(1, 0, sz, vec);
     }
 
     private:
-        void build(vector<Node> &vec, ll n, ll l, ll r){
+        void build(ll n, ll l, ll r, vector<ll> &vec){
             if(r-l == 1){
-                tree[n] = vec[l];
+                tree[n] = Node(vec[l]);
                 return;
             }
 
             ll m = (l+r)/2;
-            build(vec, 2*n, l, m);
-            build(vec, 2*n + 1, m+1, r);
+            build(2*n, l, m, vec);
+            build(2*n + 1, m, r, vec);
 
             tree[n] = tree[2*n] + tree[2*n + 1];
         }
 
-        void update(ll n, ll l, ll r, ll p, Node &node){
+        void update(ll n, ll l, ll r, ll p, ll val){
             if(r-l == 1){
                 //update the node
-                tree[n] = tree[n] + node;
+                tree[n] = tree[n] + Node(val);
                 return;
             }
 
@@ -58,12 +59,9 @@ struct Segtree{
         }
 
         Node query(ll n, ll l, ll r, ll a, ll b){
+            // Range outside query returns node that doesn't affect asnwer
+            if(b <= l || r <= a) return Node();
             if(a <= l && r <= b) return tree[n];
-
-            if(r <= a || b <= l){
-                //return node that doesnt change the segtree
-                return Node();
-            }
 
             ll m = (l+r)/2;
             Node left = query(2*n, l, m, a, b);
@@ -74,8 +72,7 @@ struct Segtree{
 
     public:
         void update(ll p, ll val){
-            Node node(val);
-            update(1, 0, sz, p, node);
+            update(1, 0, sz, p, val);
         }
 
         Node query(ll l, ll r){
