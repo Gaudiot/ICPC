@@ -6,8 +6,6 @@ struct Node{
       v = _v;
     }
 
-    Node(ll _v): v(_v){}
-
     //FUNCAO DE MERGE
     Node operator+ (const Node &o){
         //merge function
@@ -15,7 +13,9 @@ struct Node{
         return result;
     }
 
-    ll getValue(){  return v; }
+    ll ans(){
+        return v;
+    }
 };
 
 //Caso de exemplo é segtree de soma
@@ -52,8 +52,8 @@ struct Segtree{
             }
 
             ll m = (l+r)/2;
-            if(p < m) update(2*n, l, m, p, node);
-            else update(2*n + 1, m+1, m, p, node);
+            if(p < m) update(2*n, l, m, p, val);
+            else update(2*n + 1, m+1, m, p, val);
 
             tree[n] = tree[2*n] + tree[2*n+1];
         }
@@ -76,7 +76,7 @@ struct Segtree{
         }
 
         Node query(ll l, ll r){
-            return query(1, 0, sz, l, r);
+            return query(1, 0, sz, l, r).ans();
         }
 };
 
