@@ -1,4 +1,4 @@
-const ll inf = 1e9;
+const ll inf = (1LL<<40);
 
 struct Pipe{
   ll v, cap;
