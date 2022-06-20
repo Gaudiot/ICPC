@@ -69,34 +69,4 @@ struct Flow{
 
     return maxFlow;
   }
-
-  void minCut(){
-    vector<ll> visit(sz);
-    visit[0] = visit[sz-1] = true;
-
-    queue<ll> q;
-    q.push(0);
-
-    //Find all nodes from sink that are reachable in a residual graph
-    ll node;
-    while(!q.empty()){
-      node = q.front();
-      q.pop();
-
-      for(auto next: adj[node]){
-        if(visit[next]) continue;
-        visit[next] = true;
-        
-        q.push(next);
-      }
-    }
-
-    for(int i = 0 ; i < sz ; i++){
-      if(visit[i]){
-        for(auto next: adj[i]){
-          if(!visit[next]) cout << i << " " << next << endl;
-        }
-      }
-    }
-  }
 };

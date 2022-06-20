@@ -1,0 +1,4 @@
+Min Cut Max Flow diz que o menor corte do grafo de fluxo equivale ao fluxo máximo
+
+Para encontrar basta realizar uma BFS/DFS a partir do source percorrendo todas as arestas que possuem valor residual > 0.
+Caso seja possível chegar em um vértice ele pertence ao grupo A, e o restante pertence ao grupo B.
