@@ -62,13 +62,13 @@ struct MCMF{
       return dist[sz-1] < inf;
     }
 
-    pair<ll, ll> dfs(){
-      ll flow = -1, cost = 0;
+    pair<ll, ll> dfs(ll maxFlow){
+      ll flow = maxFlow, cost = 0;
 
       ll cur = sz-1;
       while(cur != 0){
         ll prev = prev_id[cur];
-        if(flow == -1 || flow > pipes[prev].cap) flow = pipes[prev].cap;
+        flow = min(flow, pipes[prev].cap);
         cur = pipes[prev].u;
       }
 
@@ -102,11 +102,11 @@ struct MCMF{
       addPipe(u, sz-1, cap, 0);
     }
 
-    pair<ll, ll> calc(ll maxFlow = -1){
+    pair<ll, ll> calc(ll maxFlow = inf){
       ll mincost = 0, flow = 0;
 
       while(bfs()){
-        pair<ll, ll> p = dfs();
+        pair<ll, ll> p = dfs(maxFlow - flow);
         mincost += p.first;
         flow += p.second;
       }
