@@ -32,4 +32,5 @@ Matrix fexp(Matrix a, ll b){
         a = a*a;
         b >>= 1;
     }
+    return ans;
 }
