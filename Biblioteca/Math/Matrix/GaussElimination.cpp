@@ -43,7 +43,7 @@ struct Matrix{
             p++;
         }
 
-        vector<ll> ans(m);
+        vector<ld> ans(m);
         for(int i = 0 ; i < n ; i++){
             if(where[i] != -1) ans[i] = mat[where[i]][m]/mat[where[i]][i];
         }
