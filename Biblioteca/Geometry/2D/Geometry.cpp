@@ -34,7 +34,7 @@ ld angle (PT p) { return atan2(p.y, p.x); }
 ld angle (PT p, PT q) { return atan2(cross(p, q), dot(p, q)); }
 ld dist(PT p, PT q = {0, 0}){ return hypot(p.x-q.x, p.y-q.y);}
 PT norm(PT p){ return p/dist(p);}
-PT perp(PT p){return norm({p.y, -p.x});}
+PT perp(PT p){return norm({-p.y, p.x});}
 
 //degree in rad
 PT rotateCCW(PT p, ld a){
@@ -45,6 +45,12 @@ PT rotateCCW(PT p, ld a){
 bool parallel(PT a, PT b, PT c, PT d){return cmp(cross(b-a, d-c)) == 0;}
 bool collinear(PT a, PT b, PT c, PT d){
     return parallel(a, b, c, d) && cmp(cross(a - b, a - c)) == 0 && cmp(cross(c - d, c - a)) == 0;
+}
+// ponto c esta em um segmento a - b
+bool ptInSegment (PT a, PT b, PT c) {
+  if (a == b) return a == c;
+  a = a-c, b = b-c;
+  return cmp(cross(a, b)) == 0 && cmp(dot(a, b)) <= 0;
 }
 
 ld computeSignedArea(const vector<PT> &p){
@@ -93,4 +99,46 @@ PT computeCircleCenter (PT a, PT b, PT c) {
   b = (a + b) / 2;
   c = (a + c) / 2;
   return lineInter(b, b + rotateCCW(a - b, 3*PI/2.0), c, c + rotateCCW(a - c, 3*PI/2.0));
+}
+
+// Determina se o ponto esta na borda do poligno
+bool pointOnPolygon(const vector<PT> &p, PT q) {
+  for(int i = 0; i < p.size(); i++)
+    if(cmp(dist(projectPointLine(p[i], p[(i + 1) % p.size()], q), q)) == 0)
+      return true;
+    return false;
+}
+
+bool ptInsideTriangle(PT p, PT a, PT b, PT c) {
+  if(cross(b-a, c-b) < 0) swap(a, b);
+  if(ptInSegment(a,b,p)) return 1;
+  if(ptInSegment(b,c,p)) return 1;
+  if(ptInSegment(c,a,p)) return 1;
+  bool x = cross(b-a, p-b) < 0;
+  bool y = cross(c-b, p-c) < 0;
+  bool z = cross(a-c, p-a) < 0;
+  return x == y && y == z;
+}
+bool pointInConvexPolygon(const vector<PT> &p, PT q) {
+  if (p.size() == 1) return p.front() == q;
+  int l = 1, r = p.size()-1;
+  while(abs(r-l) > 1) {
+    int m = (r+l)/2;
+    if(cross(p[m]-p[0] , q-p[0]) < 0) r = m;
+    else l = m;
+  }
+  return ptInsideTriangle(q, p[0], p[l], p[r]);
+}
+// Determina se o ponto esta num poligono possivelmente nao-convexo
+// Retorna 1 para pontos estritamente dentro, 0 para pontos estritamente fora do poligno 
+// e 0 ou 1 para os pontos restantes
+bool pointInPolygon(const vector<PT> &p, PT q) {
+  bool c = 0;
+  for(int i = 0; i < p.size(); i++){
+    int j = (i + 1) % p.size();
+    if((p[i].y <= q.y && q.y < p[j].y || p[j].y <= q.y && q.y < p[i].y) &&
+      q.x < p[i].x + (p[j].x - p[i].x) * (q.y - p[i].y) / (p[j].y - p[i].y))
+      c = !c;
+  }
+  return c;
 }
