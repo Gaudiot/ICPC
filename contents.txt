@@ -1,0 +1,53 @@
+# Any line followed by a '#' character is ignored
+# Section headings must be in square brackets
+# Subsections within a section should follow the format:
+#   [filename within code directory][tab character \t][subsection title]
+# tab character:	
+
+[Data Structures]
+DataStructures/Bit.cpp	BIT - Binary Indexed Tree
+DataStructures/Segtree_coor_compress	Seg Tree - coor compress
+DataStructures/Lazyseg_ett.cpp	Lazy Seg Tree - ETT
+
+[Graph Algorithms]
+Graph/BellmanFord.cpp Bellmand Ford
+Graph/Dijkstra.cpp Dijkstra
+Graph/Prim.cpp Prim
+Graph/Dsu.cpp DSU
+Graph/Lca.cpp LCA
+Graph/Scc.cpp SCC
+Graph/HLD.cpp HLD
+Graph/Flow/Dinic.cpp
+Graph/Flow/MincostMaxFlow.cpp MinCost - MaxFlow
+
+[Dynamic Programming]
+Misc/DigitDP.cpp Digit DP
+Misc/SoSDP.cpp Sum over Submasks DP - SoS DP
+
+[Math]
+Math/Crivo.cpp Crivo
+Math/FFT.cpp FFT
+Math/Phi.cpp Phi
+Math/Binomial.cpp Binomial
+Math/Matrix/GaussElimination.cpp Gauss Elimination
+Math/Matrix/GaussBitset.cpp Gauss Elimination mod2
+Math/Matrix/MatrixExo.cpp Matrix exponentiation
+
+[String Algorithms]
+String/Rabin.cpp RabinKarp
+String/Trie.cpp Trie
+String/z_function Z-function
+String/Kmp.cpp KMP
+
+[Geometry]
+Geometry/2D/Geometry.cpp Geometry
+Geometry/2D/Hull.cpp Convex Hull
+
+[Miscellaneous]
+String/random.cpp Randomizer
+Search/Ternary_search.cpp Ternary Search
+String/MaskByBitcount.cpp Masks By Bitcount
+
+[Teoremas e formulas uteis]
+Theorem/Math.txt	Math
+Theorem/Probability.txt Probability
